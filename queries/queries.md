@@ -242,3 +242,86 @@ Find the total number of products and the average price for each category. Displ
  Accessories |              5 |             1159.00
 (6 rows)
 ```
+
+### Question
+
+From the `products` table, find the total value of products in each category, where only products with a price greater than 300 are considered. Display the category and total value, and show only categories whose total value exceeds 3000.
+
+### Query
+
+```sql
+select category,sum(price) as total_sum from products where price>300 group by category having sum(price)>3000;
+```
+
+### Output
+
+```text
+  category   | total_sum
+-------------+-----------
+ Fitness     |   6544.00
+ Accessories |   5795.00
+ Furniture   |  26794.00
+ Footwear    |   4599.00
+ Electronics |  22537.00
+ Home        |   5097.00
+ Kitchen     |  20342.00
+```
+
+### Question
+
+For each category, calculate the average price and total inventory value (`price × stock_quantity`). Consider only products with a stock quantity greater than 10. Display categories whose total inventory value exceeds 10,000, sorted by total inventory value from highest to lowest.
+
+### Query
+
+```sql
+ select category,sum(price*stock)as total_sum,round(avg(price),2) as average_price from products where stock>10 group by category having sum(price*stock)>10000 order by total_sum desc;
+```
+
+### Output
+
+```text
+  category   | total_sum  | average_price
+-------------+------------+---------------
+ Electronics | 1229363.00 |       1539.00
+ Accessories |  438070.00 |       1159.00
+ Kitchen     |  435222.00 |       1449.00
+ Fitness     |  397120.00 |        855.25
+ Furniture   |  373886.00 |       4259.00
+ Footwear    |  321930.00 |       4599.00
+ Stationery  |  313215.00 |        269.17
+ Home        |   87492.00 |        799.00
+ Groceries   |   79900.00 |        799.00
+```
+
+### Question
+
+Find the top 3 categories based on their **total inventory value** (`price × stock`).
+
+For each category, display:
+
+- category
+- number of products
+- total inventory value
+- average product price
+
+Consider only products with `stock > 5` and `price > 500`.
+
+Only include categories whose total inventory value is greater than 20,000. Sort by total inventory value from highest to lowest.
+
+### Query
+
+```sql
+select category,count(*) as no_of_products,sum(price*stock) as total_inventory_value,round(avg(price),2) as average_product_price from products where stock>5 and price>500 group by categ
+ory having sum(price*stock)>20000 order by total_inventory_value desc limit 3;
+```
+
+### Output
+
+```text
+ category   | no_of_products | total_inventory_value | average_product_price
+-------------+----------------+-----------------------+-----------------------
+ Electronics |             11 |            1093318.00 |               1980.82
+ Kitchen     |              6 |             437227.00 |               3265.67
+ Furniture   |              6 |             428876.00 |               4465.67
+(3 rows)
+```
