@@ -325,3 +325,44 @@ ory having sum(price*stock)>20000 order by total_inventory_value desc limit 3;
  Furniture   |              6 |             428876.00 |               4465.67
 (3 rows)
 ```
+
+### Question
+
+Display each customer's name, their order ID, order status, and order date.
+
+Sort the results by order date from newest to oldest.
+
+### Query
+
+```sql
+select customers.full_name,orders.order_id,orders.status,orders.order_date from customers join orders on customers.
+customer_id=orders.customer_id order by orders.order_date desc;
+```
+
+### Output
+
+```text
+ full_name    | order_id |  status   |        order_date
+----------------+----------+-----------+---------------------------
+ Nisha Bhat     |       20 | PENDING   | 2026-04-01 19:00:00+05:30
+ Arjun Kumar    |       19 | DELIVERED | 2026-03-28 11:30:00+05:30
+ Rahul Verma    |       18 | SHIPPED   | 2026-03-25 15:00:00+05:30
+ Priya Nair     |       17 | CANCELLED | 2026-03-22 13:35:00+05:30
+ Aarav Sharma   |       16 | DELIVERED | 2026-03-20 10:10:00+05:30
+ Kiran Das      |       15 | DELIVERED | 2026-03-18 16:00:00+05:30
+ Isha Shah      |       14 | CONFIRMED | 2026-03-15 14:15:00+05:30
+ Sanjay Rao     |       13 | DELIVERED | 2026-03-10 11:40:00+05:30
+ Nisha Bhat     |       12 | PENDING   | 2026-03-04 17:20:00+05:30
+ Aditya Patil   |       11 | DELIVERED | 2026-03-01 09:00:00+05:30
+ Meera Joshi    |       10 | DELIVERED | 2026-02-18 18:10:00+05:30
+ Arjun Kumar    |        9 | SHIPPED   | 2026-02-14 12:30:00+05:30
+ Kavya Menon    |        8 | DELIVERED | 2026-02-09 10:45:00+05:30
+ Rahul Verma    |        7 | CONFIRMED | 2026-02-05 15:25:00+05:30
+ Sneha Kulkarni |        6 | DELIVERED | 2026-02-02 13:00:00+05:30
+ Vikram Singh   |        5 | CANCELLED | 2026-01-21 11:10:00+05:30
+ Priya Nair     |        4 | DELIVERED | 2026-01-18 16:40:00+05:30
+ Rohan Shetty   |        3 | SHIPPED   | 2026-01-12 09:20:00+05:30
+ Ananya Rao     |        2 | DELIVERED | 2026-01-08 14:00:00+05:30
+ Aarav Sharma   |        1 | DELIVERED | 2026-01-05 10:30:00+05:30
+(20 rows)
+```
